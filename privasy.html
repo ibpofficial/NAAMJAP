@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>privacy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        /* Base Styles */
+        :root {
+            --gold: #ffd700;
+            --dark-bg: #0a0a0a;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 94%;
+            max-width: 1300px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 1rem;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--gold), #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Sections */
+        .page {
+            min-height: 100vh;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        /* Home Page */
+        #home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            background: linear-gradient(45deg, var(--gold), #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        /* Naam Jaap Counter Page */
+        .counter-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .counter {
+            font-size: 8rem;
+            color: var(--gold);
+            margin: 2rem 0;
+        }
+
+        /* Guru Parampara Page */
+        .timeline-item {
+            background: var(--glass-bg);
+            padding: 2rem;
+            border-radius: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 4rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+        .parampara-details {
+        padding: 4rem 2rem;
+    }
+
+    .parampara-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        gap: 3rem;
+    }
+
+    .parampara-card {
+        background: rgba(255,255,255,0.03);
+        border-radius: 2rem;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        backdrop-filter: blur(10px);
+        transform: translateY(50px);
+        opacity: 0;
+        transition: all 0.6s ease;
+    }
+
+    .parampara-card.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .parampara-image {
+        position: relative;
+        min-height: 400px;
+    }
+
+    .parampara-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(0,0,0,0.7), transparent);
+    }
+
+    .parampara-number {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 3rem;
+        color: rgba(255,215,0,0.3);
+        font-family: 'Playfair Display', serif;
+    }
+
+    .parampara-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .parampara-title {
+        font-family: 'Playfair Display', serif;
+        color: var(--gold);
+        font-size: 2rem;
+    }
+
+    .timeline-period {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.9rem;
+    }
+
+    .parampara-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .feature {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem;
+        background: rgba(255,215,0,0.05);
+        border-radius: 0.5rem;
+    }
+
+    .feature i {
+        color: var(--gold);
+        font-size: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+        .parampara-card {
+            grid-template-columns: 1fr;
+        }
+        
+        .parampara-image {
+            min-height: 300px;
+        }
+    }
+
+    /* Animations */
+    .parampara-card:nth-child(1) { transition-delay: 0.2s; }
+    .parampara-card:nth-child(2) { transition-delay: 0.4s; }
+    .parampara-card:nth-child(3) { transition-delay: 0.6s; }
+
+    @keyframes slideUpFade {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-slide-up.active {
+        animation: slideUpFade 0.6s ease forwards;
+    }
+    /* Base Styles - Same as Previous Pages */
+    :root {
+            --gold: #ffd700;
+            --dark-bg: #0a0a0a;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Add Blog Specific Styles */
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 4rem 0;
+            background: rgba(255,215,0,0.05);
+            border-radius: 2rem;
+        }
+
+        .blog-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, var(--gold), #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-metadata {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+
+        .blog-content {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 4rem;
+        }
+
+        .article-body {
+            font-size: 1.1rem;
+            background: var(--glass-bg);
+            padding: 2rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .chapter-number {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .section-heading::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        .highlight-quote {
+            padding: 2rem;
+            margin: 2rem 0;
+            background: rgba(255,215,0,0.1);
+            border-left: 4px solid var(--gold);
+            border-radius: 1rem;
+            font-style: italic;
+        }
+
+        .table-of-contents {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+            background: var(--glass-bg);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .toc-item:hover {
+            background: rgba(255,215,0,0.05);
+            transform: translateX(10px);
+        }
+
+        /* Existing Particle and Navigation Styles */
+        /* ... (Include previous navigation and particle styles) ... */
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .blog-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-of-contents {
+                position: relative;
+                top: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+  
+
+    <div class="blog-container">
+        <header class="blog-header">
+            <h1 class="blog-title"><br>privacy</h1>
+            <div class="blog-metadata">
+               
+        </header>
+
+        <div class="blog-content">
+           
+
+                <!-- Chapter 1 -->
+                <section id="chapter1" class="blog-chapter animate-slide-up">
+                    <div class="chapter-number"></div>
+                    <h2 class="section-heading">CODITIONS</h2>
+                    <p>At NAAM JAAP, we respect your privacy and are committed to protecting any personal information you provide while using our website. This Privacy Policy outlines how we collect, use, and safeguard your data.
+
+                        1. Information We Collect
+                        
+                        When you use our website, we may collect the following types of information:
+                        
+                        Personal Information: Name, email address, and other details you provide voluntarily (e.g., when signing up for newsletters, contact forms, or donations).
+                        
+                        Non-Personal Information: Browser type, IP address, device details, and usage data collected through cookies and analytics tools.
+                        
+                        2. How We Use Your Information
+                        
+                        We use the information we collect for the following purposes:
+                        
+                        To provide and improve our spiritual content and services.
+                        
+                        To communicate with you regarding updates, newsletters, or responses to inquiries.
+                        
+                        To process donations and maintain records for transparency.
+                        
+                        To enhance user experience and analyze website performance.
+                        
+                        3. Sharing of Information
+                        
+                        We do not sell, trade, or rent your personal information. However, we may share it with:
+                        
+                        Service Providers: Trusted third parties who assist in website operations (e.g., hosting, email services, payment processors for donations).
+                        
+                        Legal Compliance: If required by law or to protect our website's integrity and security.
+                        
+                        4. Cookies and Tracking Technologies
+                        
+                        Our website may use cookies and similar technologies to improve user experience. You can control cookie preferences through your browser settings.
+                        
+                        5. Data Security
+                        
+                        We implement security measures to protect your personal data from unauthorized access, misuse, or disclosure. However, no method of online transmission is 100% secure.
+                        
+                        6. Third-Party Links
+                        
+                        Our website may contain links to third-party websites. We are not responsible for their privacy practices, so we encourage you to review their policies before providing any information.
+                        
+                        7. Your Rights and Choices
+                        
+                        You have the right to:
+                        
+                        Access, update, or delete your personal information.
+                        
+                        Opt-out of receiving communications from us.
+                        
+                        Request details on the data we hold about you.
+                        
+                        8. Changes to This Policy
+                        
+                        We may update this Privacy Policy from time to time. Any changes will be posted on this page with the updated effective date.
+                        
+                        9. Contact Us
+                        
+                        If you have any questions or concerns about this Privacy Policy, please contact us at:Email: [Insert Email]Address: [Insert Address]
+                        
+                        By using NAAM JAAP, you consent to the terms of this Privacy Policy.
+                        
+                        </p>
+                    
+                  
+
+                    
+             
+                </section>
+
+
+    <script>
+        // Particles Initialization
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#ffd700' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            }
+        });
+
+        // Page Navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                window.scrollTo({
+                    top: target.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Counter Functionality
+        let count = 0;
+        const counterElement = document.querySelector('.counter');
+        document.querySelector('.count-button').addEventListener('click', () => {
+            count++;
+            counterElement.textContent = count;
+            counterElement.style.animation = 'pulse 0.5s';
+            setTimeout(() => counterElement.style.animation = '', 500);
+        });
+    </script>
+    <script>
+        // Add to existing JavaScript
+        const paramparaCards = document.querySelectorAll('.parampara-card');
+        
+        const paramparaObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+    
+        paramparaCards.forEach(card => paramparaObserver.observe(card));
+    </script>
+</body>
+</html>

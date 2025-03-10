@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAAM JAAP - Dharmic Enlightenment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Glass Navigation */
+        .navbar {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+       /* Redesigned Navbar */
+       .navbar {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 94%;
+            max-width: 1300px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 1rem;
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #ffd700;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+        /* Page Sections */
+        .page {
+            min-height: 100vh;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Home Section */
+        #home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            color: #1a1a1a;
+            border-radius: 3rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::after {
+            left: 50%;
+            top: 50%;
+        }
+
+        /* About Section */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            position: relative;
+            perspective: 1000px;
+            border-radius: 2rem;
+            overflow: hidden;
+        }
+
+        .profile-image {
+            position: relative;
+            border-radius: 2rem;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+
+        .profile-image img {
+            width: 100%;
+            display: block;
+            filter: sepia(0.3) contrast(1.1);
+        }
+
+        .halo-effect {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: haloPulse 4s infinite;
+        }
+
+        .bio-content h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .teaching-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .teaching-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Explore Section */
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .practice-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 215, 0, 0.1),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .practice-card:hover::before {
+            left: 100%;
+        }
+
+        /* Animations */
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+            to { text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+        }
+
+        @keyframes haloPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.1; transform: scale(1.1); }
+        }
+
+        @keyframes textFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+        }
+        /* NAAM JAAP Section */
+        .deity-section {
+            padding: 6rem 2rem;
+        }
+
+        .deity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1300px;
+            margin: 2rem auto;
+        }
+
+        .deity-card {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            cursor: pointer;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .deity-card.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .deity-card:hover .deity-image {
+            transform: scale(1.05);
+        }
+
+        .deity-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .deity-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+
+        .deity-name {
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .deity-card:hover .deity-name {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .deity-description {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease 0.1s;
+        }
+
+        .deity-card:hover .deity-description {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* New Animations */
+        @keyframes cardRise {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .deity-card:nth-child(1) { transition-delay: 0.1s; }
+        .deity-card:nth-child(2) { transition-delay: 0.2s; }
+        .deity-card:nth-child(3) { transition-delay: 0.3s; }
+        .deity-card:nth-child(4) { transition-delay: 0.4s; }
+        /* Footer Styles */
+    .site-footer {
+        position: relative;
+        background: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        padding: 5rem 0 2rem;
+        margin-top: 8rem;
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255, 215, 0, 0.1);
+    }
+
+    .footer-wave {
+        position: absolute;
+        top: -100px;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(0,0,0,0.9)" d="M0 70L50 66.7C100 63 200 57 300 50C400 43 500 37 600 43.3C700 50 800 70 900 73.3C1000 77 1100 63 1150 56.7L1200 50V120H1150C1100 120 1000 120 900 120C800 120 700 120 600 120C500 120 400 120 300 120C200 120 100 120 50 120H0Z"></path></svg>');
+        background-size: cover;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    .footer-column {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.6s ease forwards;
+    }
+
+    @keyframes slideUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .footer-heading {
+        font-family: 'Playfair Display', serif;
+        color: #ffd700;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
+
+    .footer-heading::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background: #ffd700;
+    }
+
+    .footer-links .footer-link {
+        color: rgba(255,255,255,0.8);
+        text-decoration: none;
+        padding: 0.5rem 0;
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+        color: #ffd700;
+        transform: translateX(10px);
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .social-icon {
+        font-size: 1.5rem;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+        color: #ffd700;
+        transform: translateY(-3px);
+    }
+
+    .newsletter-form {
+        margin-top: 1.5rem;
+        position: relative;
+    }
+
+    .newsletter-input {
+        width: 100%;
+        padding: 1rem;
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,215,0,0.3);
+        border-radius: 0.5rem;
+        color: #fff;
+    }
+
+    .newsletter-btn {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #ffd700;
+        color: #1a1a1a;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .newsletter-btn:hover {
+        background: #ffaa00;
+    }
+
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: rgba(255,215,0,0.2);
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        color: #ffd700;
+        cursor: pointer;
+        opacity: 0;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .back-to-top.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 2rem;
+        margin-top: 3rem;
+        text-align: center;
+    }
+
+    .legal-links {
+        margin-bottom: 1rem;
+    }
+
+    .legal-links a {
+        color: rgba(255,255,255,0.6);
+        text-decoration: none;
+        margin: 0 1rem;
+        font-size: 0.9rem;
+    }
+
+    .legal-links a:hover {
+        color: #ffd700;
+    }
+
+    .copyright {
+        color: rgba(255,255,255,0.6);
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-column {
+            text-align: center;
+        }
+        
+        .footer-heading::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <nav class="navbar">
+        <div class="logo">NAAM JAAP</div>
+        <div class="nav-links">
+            <a href="#home">HOME</a>
+            <a href="#naam-jaap">NAAM JAAP</a>
+            <a href="#about">ABOUT</a>
+            <a href="#explore">EXPLORE</a>
+            <a href="game.html">GAME</a>
+        </div>
+    </nav>
+
+
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="page active">
+        <div class="hero-content">
+            <h1 class="hero-title">अवश्यमेव भोक्तव्यं कृतं कर्म शुभाशुभम्। </h1>
+            <p class="hero-subtitle">Discover Eternal Truth Through Sacred Practice</p>
+            <a href="#explore" class="cta-button">आध्यात्मिक यात्रा शुरू करें</a>
+            <a href="#explore" class="cta-button">Begin your Journey</a>
+            
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="page">
+        <div class="about-container">
+            <div class="profile-card">
+                <div class="profile-image">
+                    <img src="aa.png" alt="Shri Premanand Ji Maharaj">
+                    <div class="halo-effect"></div>
+                </div>
+            </div>
+            <div class="bio-content">
+                <h2>Shri Premanand Ji Maharaj</h2>
+                <div class="decorative-line"></div>
+                <p class="bio-text">
+                    श्री प्रेमानंद जी महाराज एक प्रसिद्ध आध्यात्मिक संत और राधावल्लभ संप्रदाय के प्रमुख आचार्य हैं। उनका जन्म 1969 में उत्तर प्रदेश के कानपुर जिले में हुआ था। उन्होंने बचपन से ही आध्यात्मिकता की ओर रुझान दिखाया और 13 वर्ष की उम्र में संन्यास ग्रहण कर लिया। वृंदावन में भक्ति और साधना करते हुए, उन्होंने राधारानी की भक्ति को अपना जीवन समर्पित कर दिया। प्रेम, भक्ति और ब्रह्मचर्य पर उनकी शिक्षाएँ लाखों भक्तों को प्रेरित करती हैं। उन्होंने 'श्री हित राधा केली कुंज ट्रस्ट' की स्थापना की, जो समाजसेवा और आध्यात्मिक जागरूकता के कार्यों में संलग्न है।
+                </p>
+                <p class="bio-text">
+                    Shri Premanand Ji Maharaj is a famous spiritual saint and head of Radhavallabh sect. He was born in 1969 in Kanpur district of Uttar Pradesh. He showed a tendency towards spirituality since childhood and retired at the age of 13. While doing devotion and practice in Vrindavan, he dedicated his life to Radharani's devotion. His teachings on love, devotion and celibacy inspire millions of devotees. He established the 'Sri Hit Radha Kelly Kunj Trust', which is engaged in the works of social service and spiritual awareness.
+                </p>
+                <div class="teaching-grid">
+                    <div class="teaching-card">
+                        <h3>Core Philosophy</h3>
+                        <p>"True spirituality is the realization of divinity within all existence."</p>
+                    </div>
+                    <div class="teaching-card">
+                        <h3>Key Teachings</h3>
+                        <p>• Unity of Consciousness<br>• Dharma in Daily Life<br>• Meditation & Self-Inquiry</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Add this new section -->
+<section id="naam-jaap" class="page">
+    <div class="deity-section">
+        <h2 class="section-title">Divine Manifestations</h2>
+        <div class="deity-grid">
+            <a href="shivnaamjaap.html" class="deity-card">
+                <img src="shiv.png" alt="Lord Krishna" class="deity-image">
+                <div class="deity-overlay">
+                    <h3 class="deity-name">SHIV </h3>
+                    <p class="deity-description">सांब सदाशिव</p>
+                </div>
+            </a>
+            <a href="krishnanaamjaap.html" class="deity-card">
+                <img src="krishna.png" alt="Lord Shiva" class="deity-image">
+                <div class="deity-overlay">
+                    <h3 class="deity-name">SHRI KRISHNA</h3>
+                    <p class="deity-description">हरे कृष्ण </p>
+                </div>
+            </a>
+            <a href="raamnaamjaap.html" class="deity-card">
+                <img src="raamlala.png" alt="Goddess Durga" class="deity-image">
+                <div class="deity-overlay">
+                    <h3 class="deity-name">SHRI RAAM</h3>
+                    <p class="deity-description">राम</p>
+                </div>
+            </a>
+            <a href="radhanaamjaap.html" class="deity-card">
+                <img src="radha.png" alt="Goddess Durga" class="deity-image">
+                <div class="deity-overlay">
+                    <h3 class="deity-name">SHRI RADHA</h3>
+                    <p class="deity-description">राधा</p>
+                </div>
+            </a>
+            <!-- Add more deity cards -->
+        </div>
+    </div>
+    
+</section>
+    <!-- Explore Section -->
+    <section id="explore" class="page">
+        <div class="content-section">
+            <h2>Sacred Practices</h2>
+            <div class="practice-grid">
+                <div class="practice-card">
+                    <h3>Naam Jaap Meditation</h3>
+                    <h1><p>भगवान नाम जप कैसे करें
+                        भगवान का नाम जपने के लिए किसी विशेष स्थिति, स्थान या विशेष दिवस की अनिवार्यता नही हैं, भगवान नाम जाप तो कभी भी किया जा सकता है। संन्यासी अखंड नाम जाप करते है जिसके अतुलनीय लाभ हैं। परंतु शेष समय में भी नाम सुमिरन करना श्रेष्ठ हैं।
+                        
+                        भक्ति स्वयं भगवान ही भक्त को प्राप्त करवाते है, भगवान के इच्छा के बिना किसीका नाम जाप करना संभव ही नहीं हैं।
+                        
+                        भगवान का नाम किसी भी समय, स्थिति और स्थान पर जाप कर सकते हैं, भगवान का नाम मुंह से जोर-जोर से उच्चारण करने की आवश्यकता नहीं हीं है | लेकिन धीमे स्वर में भगवान का सुमिरन करना उत्तम है या  मन में ही जप किया जा सकता है | धीमे स्वर में भाव होता हैं या मन में नाम जाप करने से मन की एकाग्रता में भी उन्नति होती है।
+                        
+                        भक्त नाम जाप करने के लिए के लिए ध्यान की अवस्था में माला के साथ नाम जाप करते है, भगवान के विग्रह के सामने बैठते हैं, शांत स्थान पर नाम जाप करने से कोई बाधा भी नहीं आती जिसे सुमिरन भंग नहीं होता।
+                        
+                        नाम जाप करते हुए कई भक्त भगवान के स्वरूप का मन में ही स्मरण करते हैं, और कई भक्त नाम के धुन में ही स्थित रहते हैं।
+                        
+                        
+                        <p></p></h1>
+                </div>
+                <div class="practice-card">
+                    <h3>Vedic Wisdom</h3>
+                    
+
+                    <h1><p>भगवान का नाम जपने के फायदे
+                        भगवान का सुमिरन (स्मरण, जाप) करने से भक्त को जीवन में और मृत्यु के पश्चात भी अनंत लाभ होते हैं, कलियुग में भगवान नाम सुमिरन से ही भक्त भगवतप्राप्ति और मोक्ष प्राप्त करता हैं, जैसे अतिथियों को संतुष्ट करने के लिए विशेष भोजन पकाते है, जैसे शिशु को सुलाने के लिए मां लोरी गाती है वैसे ही भगवान को प्रसन्न करने के लिए नाम जाप एक श्रेष्ठ साधन है।
+                        
+                        नाम जाप के अनंत लाभों को लिखकर बताना संभव ही नहीं हो सकता क्योंकि भक्तों ने भगवान नाम जपने से इतने लाभ प्राप्त किए हैं की इसे खोजने निकल पड़े तो लाखों जन्म भी कम पड़ जाए।
+                        
+                        
+                        महर्षि नारद मुनि एक काल में विद्याहीन, बलहीन, दासीपुत्र हुआ करते थे , सातों के संगती और भगवान नाम जप से उन्हें देवर्षि पद प्राप्त हुआ, भगवान का परम भक्त प्रह्लाद निरंतर हरी नाम सुमिरन करता था, प्रह्लाद ने बाल्यावस्था में ही भगवतप्राप्ति कर ली, भगवान ने हिरण्यकश्प से प्रह्लाद के प्राणों की रक्षा की, प्रह्लाद अंतिम समय में मृत्यु लोक छोड़ कर भगवान के परम पूज्य धाम वैकुंठ में गए। महाभारत काल में मैत्रेय ऋषि की कथा है भगवान नाम के प्रभाव से वे एक कीड़े से ज्ञानी महर्षि में परिवर्तित हो गए।
+                        
+                        भगवान नाम जाप के लाभों पर ऐसी असंख्य कथाएं है। भगवान नाम सुमिरन से ही कई भक्तों के जीवन में ही अद्भुत लाभ हुए हैं।
+                        
+                        </p></h1>
+                        <p>
+                            
+                </div>
+                <div class="practice-card">
+                    <h3>Life of premananj ji maharaj</h3>
+                    <p>श्री प्रेमानंद गोविंद शरण जी महाराज, जिन्हें प्रेमानंद जी महाराज के नाम से भी जाना जाता है, राधावल्लभ संप्रदाय के एक प्रमुख संत हैं। उनका जन्म 1969 में उत्तर प्रदेश के कानपुर जिले के सरसौल ब्लॉक के अखरी गांव में एक सात्विक ब्राह्मण परिवार में हुआ था, और उनका मूल नाम अनिरुद्ध कुमार पांडे था। 
+                        EN.WIKIPEDIA.ORG
+                        
+                        प्रेमानंद जी महाराज के दादा और पिता दोनों ही संन्यासी थे, जिससे उनके परिवार का वातावरण अत्यंत धार्मिक था। बाल्यकाल से ही उनमें आध्यात्मिकता के प्रति गहरा रुझान था। 13 वर्ष की आयु में उन्होंने गृहस्थ जीवन त्यागकर संन्यास मार्ग अपना लिया। 
+                        EN.WIKIPEDIA.ORG
+                        
+                        संन्यास ग्रहण करने के बाद, उन्होंने वाराणसी में गंगा के तट पर साधना की। बाद में, वृंदावन में एक पीपल के वृक्ष के नीचे ध्यान करते समय, एक संत के आग्रह पर उन्होंने रासलीला का दर्शन किया, जिसने उनके आध्यात्मिक जीवन में महत्वपूर्ण परिवर्तन लाया। इसके पश्चात, उन्हें राधावल्लभ संप्रदाय में दीक्षा मिली और उन्होंने अपने सद्गुरुदेव पूज्य श्री हित गौरंगी शरण जी महाराज से 'निज मंत्र' प्राप्त किया, जिससे वे रसिक संतों की श्रेणी में शामिल हुए। 
+                        EN.WIKIPEDIA.ORG
+                        
+                        प्रेमानंद जी महाराज ने 2016 में 'श्री हित राधा केली कुंज ट्रस्ट वृंदावन' की स्थापना की, जो समाज के उत्थान के लिए कार्यरत है। यह ट्रस्ट वृंदावन धाम के तीर्थयात्रियों को आवास, भोजन, वस्त्र, चिकित्सा सेवा और अन्य आवश्यक सुविधाएं प्रदान करता है। 
+                        EN.WIKIPEDIA.ORG
+                        
+                        उनकी शिक्षाएं मुख्यतः प्रेम, भक्ति, और ब्रह्मचर्य पर केंद्रित हैं। वे गुरु की महत्ता पर विशेष जोर देते हैं और मानते हैं कि आध्यात्मिक शक्ति व्यक्ति और समाज के संबंधों में सामंजस्य स्थापित करती है। उनके अनुसार, नकारात्मक चरित्र खतरनाक हो सकता है, इसलिए चरित्र की शुद्धता और ब्रह्मचर्य का पालन आवश्यक है, जो स्वस्थ, संतुलित और आध्यात्मिक जीवन जीने में सहायक होता है। 
+                        EN.WIKIPEDIA.ORG
+                        
+                        प्रेमानंद जी महाराज ने कई ग्रंथों की रचना की है, जिनमें 'ब्रह्मचर्य', 'एकांतिक वार्तालाप', 'हित सद्गुरु देव के वचनामृत', 'अष्टयाम सेवा पद्धति' और 'स्पिरिचुअल अवेकनिंग (वॉल्यूम 1)' प्रमुख हैं। इन ग्रंथों में उन्होंने आध्यात्मिक जीवन के विभिन्न पहलुओं पर प्रकाश डाला है। 
+                        EN.WIKIPEDIA.ORG
+                        
+                        उनकी शिक्षाओं और कार्यों के माध्यम से प्रेमानंद जी महाराज ने समाज में आध्यात्मिक जागरूकता फैलाने में महत्वपूर्ण योगदान दिया है, जिससे अनेक लोग लाभान्वित हो रहे हैं।</p>
+                </div>
+                <div class="practice-card">
+                    <h3>नासतो विद्यते भावो नाभावो विद्यते सतः।
+                        उभयोरपि दृष्टोऽन्तस्त्वनयोस्तत्त्वदर्शिभिः</h3>
+                        <p>
+                            There is no existence of unreal things and no cessation of real things. The truth and nature of both aspects are verily observed and concluded by the philosophers and seers of truth.
+                        </p>
+                  
+                </div>
+                <div class="practice-card">
+                    <h3>नैनं छिद्रन्ति शस्त्राणि नैनं दहति पावक: ।
+                        न चैनं क्लेदयन्त्यापो न शोषयति मारुत </h3>
+                    <p>There is no weapon that has the power to cut the Atma (Soul) into pieces, nor can it be burned.
+
+                        The soul cannot be affected by water nor withered by the wind.</p>
+                </div>
+                <div class="practice-card">
+                    <h3>हतो वा प्राप्स्यसि स्वर्गं जित्वा वा भोक्ष्यसे महीम्।
+                        तस्मादुत्तिष्ठ कौन्तेय युद्धाय कृतनिश्चयः</h3>
+                    <p>There is always two option when you fight; you either be slain and go to heaven or gain victory and enjoy life on earth.
+
+                        So, O son of Kunti; get up and fight with determination.Ancient teachings for modern life</p>
+            
+               
+            
+        </div>
+    </section>
+
+    <script>
+        // Particles Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#ffd700' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            }
+        });
+
+        // Page Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetPage = document.querySelector(targetId);
+
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+
+                document.querySelectorAll('.nav-link').forEach(l => {
+                    l.classList.remove('active');
+                });
+
+                targetPage.classList.add('active');
+                link.classList.add('active');
+
+                // Smooth scroll
+                window.scrollTo({
+                    top: targetPage.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.page').forEach(page => {
+            observer.observe(page);
+        });
+
+        // Dynamic Header
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const navbar = document.querySelector('.navbar');
+
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                navbar.style.transform = `translateX(-50%) translateY(-100%)`;
+            } else {
+                navbar.style.transform = `translateX(-50%) translateY(0)`;
+            }
+            lastScroll = currentScroll;
+        });
+    </script>
+    <script>
+        // Add this to existing JavaScript
+        const deityObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.deity-card').forEach(card => {
+            deityObserver.observe(card);
+        });
+
+        // Handle deity card clicks
+        document.querySelectorAll('.deity-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Add your page transition logic here
+                window.location.href = card.getAttribute('href');
+            });
+        });
+    </script>
+    <footer class="site-footer">
+        <div class="footer-wave"></div>
+        
+        <div class="footer-container">
+            <!-- Footer Columns -->
+            <div class="footer-grid">
+                <div class="footer-column animate-slide-up">
+                    <h4 class="footer-heading">About Naam Jaap</h4>
+                    <p class="footer-text">Embark on a transformative journey of spiritual awakening through the sacred practice of Naam Jaap.</p>
+                    <div class="footer-logo">NAAM JAAP</div>
+                    <div class="trust-badges">
+                        <div class="badge"><i class="fas fa-medal"></i> Authentic Teachings</div>
+                        <div class="badge"><i class="fas fa-lock"></i> Secure Platform</div>
+                    </div>
+                </div>
+    
+                <div class="footer-column animate-slide-up">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="guruparampara.html" class="footer-link">Our Guru Parampara</a></li>
+                        
+                        <li><a href="spritualblog.html" class="footer-link">Spiritual Blog</a></li>
+                    </ul>
+                </div>
+    
+                <div class="footer-column animate-slide-up">
+                    <h4 class="footer-heading">Contact Dharma</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>Shri Kshetra, Vrindavan Dham<br>Uttar Pradesh, India</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <p>+91 P5225281**</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <p>NAAMJAAP@naamjaap.org</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="footer-column animate-slide-up">
+                    <h4 class="footer-heading">Sadhana Updates</h4>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your sacred email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-lotus"></i> Subscribe
+                        </button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="legal-links">
+                    <a href="privasy.html">Divine Privacy</a>
+                    
+                    <a href="disclamer.html">Spiritual Disclaimer</a>
+                </div>
+                <div class="copyright">
+                    © 2024 Naam Jaap. All rights reserved.<br>
+                    Crafted with <i class="fas fa-heart"></i> in Bharat
+                </div>
+            </div>
+        </div>
+    
+        <!-- Back to Top -->
+        <button class="back-to-top" onclick="scrollToTop()">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </footer>
+</body>
+</html>

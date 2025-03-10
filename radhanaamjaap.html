@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAAM JAAP - Divine Counter</title>
+    <link href="krishna.png" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                        url('radha.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: -1;
+        }
+
+        .audio-control {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .control-btn {
+            background: rgba(255, 215, 0, 0.2);
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 2rem;
+            color: #ffd700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin: 2rem 0;
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            width: 90%;
+            margin: 2rem auto;
+        }
+
+        .counter-section {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .counter-container {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .counter {
+            font-size: 8rem;
+            font-weight: 300;
+            color: #ffd700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            margin: 1rem 0;
+            transition: all 0.2s ease;
+        }
+
+        .floating-counter {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(255, 217, 0, 0);
+            padding: 1.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            animation: pulse 0s infinite;
+        }
+
+        .stats-section {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .progress-container {
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffaa00);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+
+        .timer {
+            font-size: 2rem;
+            color: #ffd700;
+            margin: 1rem 0;
+        }
+
+        .achievements {
+            margin-top: 2rem;
+        }
+
+        .achievement-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(255,215,0,0.1);
+            border-radius: 2rem;
+            margin: 0.5rem;
+            animation: badgePop 0.5s ease;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,215,0,0.2); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255,215,0,0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,215,0,0); }
+        }
+
+        @keyframes badgePop {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: confettiFall 3s linear;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <audio id="mantra-audio" loop>
+        <source src="radha.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="audio-control">
+        <button class="control-btn" onclick="toggleMute()">🔊 Volume</button>
+        
+    </div>
+
+    <h1>राधा राधा</h1>
+
+    <div class="main-container">
+        <div class="counter-section">
+            <div class="counter-container">
+                <div class="counter" id="count">0</div>
+                <div class="timer" id="timer">00:00:00</div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="control-btn" onclick="increment()">➕ Add Jaap</button>
+                <button class="control-btn" onclick="resetCounter()"> New</button>
+                <button class="control-btn" onclick="clearAll()"> Clear</button>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>Total Jaaps</h3>
+                    <p class="stat-number" id="total-count">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Malas</h3>
+                    <p class="stat-number" id="mala-count">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Session Time</h3>
+                    <p class="stat-number" id="session-time">00:00:00</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Daily Goal</h3>
+                    <p class="stat-number">108/<span id="daily-goal">0</span></p>
+                </div>
+            </div>
+
+            <div class="achievements">
+                <h3>Achievements</h3>
+                <div id="achievements-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-counter" onclick="increment()">
+        <div class="counter">+1</div>
+    </div>
+
+    <script>
+        let count = 0;
+        let totalCount = localStorage.getItem('totalCount') || 0;
+        let startTime = null;
+        let timerInterval = null;
+        let isMuted = false;
+        let isDarkTheme = true;
+        const audio = document.getElementById('mantra-audio');
+        const achievements = [
+            { target: 108, title: "First Mala Completed! 🌟" },
+            { target: 1000, title: "1000 Jaaps! 🎉" },
+            { target: 5000, title: "5000 Jaaps! ✨" }
+        ];
+
+        // Initialize
+        audio.volume = 0.3;
+        audio.play().catch(() => console.log("Autoplay blocked"));
+        updateDisplay();
+        checkAchievements();
+
+        function updateDisplay() {
+            document.getElementById('count').textContent = count;
+            document.getElementById('total-count').textContent = totalCount;
+            const malas = Math.floor(count / 108);
+            document.getElementById('mala-count').textContent = malas;
+            document.getElementById('progress').style.width = `${(count % 108) / 108 * 100}%`;
+            
+            localStorage.setItem('totalCount', totalCount);
+            updateDailyGoal();
+        }
+
+        function increment() {
+            if(count === 0) startTimer();
+            count++;
+            totalCount++;
+            animateCounter();
+            createConfetti();
+            checkMalaCompletion();
+            updateDisplay();
+        }
+
+        function resetCounter() {
+            count = 0;
+            updateDisplay();
+            resetTimer();
+        }
+
+        function clearAll() {
+            count = 0;
+            totalCount = 0;
+            updateDisplay();
+            resetTimer();
+            localStorage.clear();
+            clearAchievements();
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            audio.muted = isMuted;
+            document.querySelector('.control-btn').textContent = isMuted ? "🔇 Unmute" : "🔊 Volume";
+        }
+
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            document.body.style.background = isDarkTheme 
+                ? 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8))' 
+                : 'linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9))';
+        }
+
+        function startTimer() {
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const hours = Math.floor(elapsed / 3600000);
+            const minutes = Math.floor((elapsed % 3600000) / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            
+            document.getElementById('timer').textContent = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function animateCounter() {
+            const counter = document.getElementById('count');
+            counter.style.transform = 'scale(1.2)';
+            setTimeout(() => counter.style.transform = 'scale(1)', 200);
+        }
+
+        function createConfetti() {
+            for(let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        function checkMalaCompletion() {
+            if(count % 108 === 0 && count > 0) {
+                createConfetti();
+                showAchievement(`Completed ${count/108} Malas! 🎉`);
+            }
+        }
+
+        function checkAchievements() {
+            achievements.forEach(ach => {
+                if(totalCount >= ach.target) {
+                    showAchievement(ach.title);
+                }
+            });
+        }
+
+        function showAchievement(text) {
+            const badge = document.createElement('div');
+            badge.className = 'achievement-badge';
+            badge.textContent = text;
+            document.getElementById('achievements-list').appendChild(badge);
+        }
+
+        function updateDailyGoal() {
+            const today = new Date().toDateString();
+            const dailyData = JSON.parse(localStorage.getItem('dailyData') || '{}');
+            
+            if(!dailyData.date || dailyData.date !== today) {
+                dailyData.date = today;
+                dailyData.count = 0;
+            }
+            
+            dailyData.count = count;
+            localStorage.setItem('dailyData', JSON.stringify(dailyData));
+            document.getElementById('daily-goal').textContent = dailyData.count;
+        }
+
+        function clearAchievements() {
+            document.getElementById('achievements-list').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
