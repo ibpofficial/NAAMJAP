@@ -1,0 +1,2 @@
+# NAAMJAP
+a spritual website
