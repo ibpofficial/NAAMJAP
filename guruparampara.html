@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAAM JAAP - Spiritual Enlightenment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        /* Base Styles */
+        :root {
+            --gold: #ffd700;
+            --dark-bg: #0a0a0a;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 94%;
+            max-width: 1300px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 1rem;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--gold), #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Sections */
+        .page {
+            min-height: 100vh;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        /* Home Page */
+        #home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            background: linear-gradient(45deg, var(--gold), #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        /* Naam Jaap Counter Page */
+        .counter-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .counter {
+            font-size: 8rem;
+            color: var(--gold);
+            margin: 2rem 0;
+        }
+
+        /* Guru Parampara Page */
+        .timeline-item {
+            background: var(--glass-bg);
+            padding: 2rem;
+            border-radius: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 4rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+        .parampara-details {
+        padding: 4rem 2rem;
+    }
+
+    .parampara-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        gap: 3rem;
+    }
+
+    .parampara-card {
+        background: rgba(255,255,255,0.03);
+        border-radius: 2rem;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        backdrop-filter: blur(10px);
+        transform: translateY(50px);
+        opacity: 0;
+        transition: all 0.6s ease;
+    }
+
+    .parampara-card.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .parampara-image {
+        position: relative;
+        min-height: 400px;
+    }
+
+    .parampara-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(0,0,0,0.7), transparent);
+    }
+
+    .parampara-number {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 3rem;
+        color: rgba(255,215,0,0.3);
+        font-family: 'Playfair Display', serif;
+    }
+
+    .parampara-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .parampara-title {
+        font-family: 'Playfair Display', serif;
+        color: var(--gold);
+        font-size: 2rem;
+    }
+
+    .timeline-period {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.9rem;
+    }
+
+    .parampara-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .feature {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem;
+        background: rgba(255,215,0,0.05);
+        border-radius: 0.5rem;
+    }
+
+    .feature i {
+        color: var(--gold);
+        font-size: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+        .parampara-card {
+            grid-template-columns: 1fr;
+        }
+        
+        .parampara-image {
+            min-height: 300px;
+        }
+    }
+
+    /* Animations */
+    .parampara-card:nth-child(1) { transition-delay: 0.2s; }
+    .parampara-card:nth-child(2) { transition-delay: 0.4s; }
+    .parampara-card:nth-child(3) { transition-delay: 0.6s; }
+
+    @keyframes slideUpFade {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-slide-up.active {
+        animation: slideUpFade 0.6s ease forwards;
+    }
+
+    </style>
+</head>
+<body>
+  
+
+    <section class="parampara-details">
+        <div class="parampara-card animate-slide-up">
+            <div class="parampara-image">
+                <img src="prem.png" alt="Vedic Rishis">
+                <div class="image-overlay"></div>
+                <div class="parampara-number">01</div>
+            </div>
+            <div class="parampara-content">
+                <h3 class="parampara-title">Vedic Parampara</h3>
+                <div class="timeline-period">5000 BCE - Present</div>
+                <p class="parampara-description">
+                    The eternal wisdom tradition preserving the sacred Vedas through oral transmission.
+                    Established by the Saptarishis (Seven Great Sages) who received divine revelations.
+                </p>
+        
+        <div class="parampara-grid">
+            <!-- Vedic Parampara -->
+            <div class="parampara-card animate-slide-up">
+                <div class="parampara-image">
+                    <img src="shiv.png" alt="Vedic Rishis">
+                    <div class="image-overlay"></div>
+                    <div class="parampara-number">01</div>
+                </div>
+                <div class="parampara-content">
+                    <h3 class="parampara-title">Vedic Parampara</h3>
+                    <div class="timeline-period">5000 BCE - Present</div>
+                    <p class="parampara-description">
+                        The eternal wisdom tradition preserving the sacred Vedas through oral transmission.
+                        Established by the Saptarishis (Seven Great Sages) who received divine revelations.
+                    </p>
+                    <div class="parampara-features">
+                        <div class="feature">
+                            <i class="fas fa-om"></i>
+                            <span>Preservation of Vedas</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-book"></i>
+                            <span>Upanishadic Teachings</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-yin-yang"></i>
+                            <span>Yoga-Darshana System</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Bhakti Parampara -->
+            <div class="parampara-card animate-slide-up">
+                <div class="parampara-image">
+                    <img src="krishna.png" alt="Bhakti Saints">
+                    <div class="image-overlay"></div>
+                    <div class="parampara-number">02</div>
+                </div>
+                <div class="parampara-content">
+                    <h3 class="parampara-title">Bhakti Parampara</h3>
+                    <div class="timeline-period">8th - 17th Century</div>
+                    <p class="parampara-description">
+                        The devotional movement spanning across India, emphasizing loving devotion to the Divine.
+                        Glorified by saints like Mirabai, Tulsidas, and Chaitanya Mahaprabhu.
+                    </p>
+                    <div class="parampara-features">
+                        <div class="feature">
+                            <i class="fas fa-hands-praying"></i>
+                            <span>Devotional Practices</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-music"></i>
+                            <span>Kirtan Tradition</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-temple"></i>
+                            <span>Temple Culture</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Tantric Parampara -->
+            <div class="parampara-card animate-slide-up">
+                <div class="parampara-image">
+                    <img src="aa.png" alt="Tantric Tradition">
+                    <div class="image-overlay"></div>
+                    <div class="parampara-number">03</div>
+                </div>
+                <div class="parampara-content">
+                    <h3 class="parampara-title">Tantric Parampara</h3>
+                    <div class="timeline-period">5th Century - Present</div>
+                    <p class="parampara-description">
+                        The esoteric tradition focusing on ritual practices and energy cultivation.
+                        Preserved through lineages of Siddhas and Yoginis across India.
+                    </p>
+                    <div class="parampara-features">
+                        <div class="feature">
+                            <i class="fas fa-hand-sparkles"></i>
+                            <span>Energy Practices</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-mandala"></i>
+                            <span>Sacred Geometry</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-lotus"></i>
+                            <span>Kundalini Yoga</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Particles Initialization
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#ffd700' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            }
+        });
+
+        // Page Navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                window.scrollTo({
+                    top: target.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Counter Functionality
+        let count = 0;
+        const counterElement = document.querySelector('.counter');
+        document.querySelector('.count-button').addEventListener('click', () => {
+            count++;
+            counterElement.textContent = count;
+            counterElement.style.animation = 'pulse 0.5s';
+            setTimeout(() => counterElement.style.animation = '', 500);
+        });
+    </script>
+    <script>
+        // Add to existing JavaScript
+        const paramparaCards = document.querySelectorAll('.parampara-card');
+        
+        const paramparaObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+    
+        paramparaCards.forEach(card => paramparaObserver.observe(card));
+    </script>
+</body>
+</html>
